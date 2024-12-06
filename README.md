@@ -20,9 +20,9 @@ Listing of the current utilities for common functions found in Advent of Code pu
 
 ### Data Structures
 
-- [Grid2D](src/main/com/soberg/aoc/utlities/datastructures/Grid2D.kt) - Simple uniform 2D Grid with utility functions for moving in cardinal directions.
+- [Grid2D](src/main/kotlin/com/soberg/aoc/utlities/datastructures/Grid2D.kt) - Simple uniform 2D Grid with utility functions for moving in cardinal directions.
 
 
 ### Input Reading
 
-- [ReadInput](src/main/com/soberg/aoc/utlities/input/ReadInput.kt) - Uses the [Kotlin AoC API](https://github.com/jsoberg/Kotlin-AoC-API) to read daily input from API, caching locally in `input/<year>/Day<day>.txt`.
+- [ReadInput](src/main/kotlin/com/soberg/aoc/utlities/input/ReadInput.kt) - Uses the [Kotlin AoC API](https://github.com/jsoberg/Kotlin-AoC-API) to read daily input from API, caching locally in `input/<year>/Day<day>.txt`.
