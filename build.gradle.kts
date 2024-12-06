@@ -12,6 +12,7 @@ dependencies {
 
     testImplementation(libs.test.assertk)
     testImplementation(libs.test.junitJupiter)
+    testImplementation(libs.test.junitJupiter.params)
     testImplementation(libs.test.kotlin.coroutines)
     testImplementation(libs.test.mockk)
 }
