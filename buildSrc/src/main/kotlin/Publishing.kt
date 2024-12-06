@@ -1,5 +1,5 @@
 object Publishing {
     const val ArtifactId = "kotlin-aoc-utilities"
     const val GroupId = "com.github.jsoberg"
-    const val Version = "2024.1"
+    const val Version = "2024.2"
 }
