@@ -1,6 +1,6 @@
 # Kotlin Advent of Code Utilities :christmas_tree:
 
-[![](https://jitpack.io/v/jsoberg/Kotlin-AoC-Utilities.svg)](https://jitpack.io/#jsoberg/Kotlin-AoC-Utilities)
+[![](https://jitpack.io/v/jsoberg/Kotlin-AoC-Utilities.svg)](https://jitpack.io/#jsoberg/Kotlin-AoC-Utilities) [![Tests](https://github.com/jsoberg/Kotlin-AoC-Utilities/actions/workflows/run-unit-tests.yml/badge.svg)](https://github.com/jsoberg/Kotlin-AoC-Utilities/actions/workflows/run-unit-tests.yml)
 
 Common utilities that I end up using every year for [Advent of Code](https://adventofcode.com/). Includes the [Kotlin AoC API](https://github.com/jsoberg/Kotlin-AoC-API) for automatically pulling and caching input for each day of the advent.
 
