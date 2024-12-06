@@ -1,9 +1,11 @@
 package com.soberg.aoc.utlities.datastructures
 
 import assertk.assertThat
+import assertk.assertions.containsExactly
 import assertk.assertions.hasMessage
 import assertk.assertions.isEqualTo
 import assertk.assertions.isFalse
+import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import com.soberg.aoc.utlities.datastructures.Grid2D.Direction
@@ -75,6 +77,58 @@ class Grid2DTest {
                     listOf(1111, 2222, 3333, 4444),
                     listOf(11111, 22222, 33333, 44444),
                 ).toGrid2D()
+            )
+    }
+
+    @Test
+    fun `return expected elements for collect`() {
+        val actual = testGrid.collect(Location(2, 1), Direction.East, 3)
+        assertThat(actual)
+            .isNotNull()
+            .containsExactly(222, 333, 444)
+    }
+
+    @Test
+    fun `return null for collect when out of bounds`() {
+        val actual = testGrid.collect(Location(2, 1), Direction.East, 4)
+        assertThat(actual)
+            .isNull()
+    }
+
+    @Test
+    fun `touch all locations in grid for traverse`() {
+        val grid = listOf(
+            listOf(1, 2, 3),
+            listOf(4, 5, 6),
+        ).toGrid2D()
+        val actualTouched = buildList {
+            grid.traverse {
+                add(it.row to it.col)
+            }
+        }
+        assertThat(actualTouched)
+            .containsExactly(
+                0 to 0, 0 to 1, 0 to 2,
+                1 to 0, 1 to 1, 1 to 2,
+            )
+    }
+
+    @Test
+    fun `create expected grid from input`() {
+        val grid = listOf(
+            "ABC",
+            "123",
+        ).toGrid2D { line ->
+            line.toCharArray().asList()
+        }
+        assertThat(grid)
+            .isEqualTo(
+                Grid2D(
+                    listOf(
+                        listOf('A', 'B', 'C'),
+                        listOf('1', '2', '3'),
+                    )
+                )
             )
     }
 
