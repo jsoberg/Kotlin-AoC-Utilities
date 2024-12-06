@@ -1,0 +1,21 @@
+[versions]
+assertk = "0.28.1"
+kotlin = "2.0.21"
+kotlinCoroutines = "1.9.0"
+junitJupiter = "5.11.3"
+mockk = "1.13.13"
+sobergAocApi = "1.0"
+
+[libraries]
+# Kotlin
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
+
+# Third-party
+soberg-aoc-api = { module = "com.github.jsoberg:Kotlin-AoC-API", version.ref = "sobergAocApi" }
+
+# Test
+test-assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
+test-junitJupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
+test-kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinCoroutines" }
+test-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
