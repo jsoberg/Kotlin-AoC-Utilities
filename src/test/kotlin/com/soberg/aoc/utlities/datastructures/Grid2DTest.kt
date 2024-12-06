@@ -40,6 +40,12 @@ class Grid2DTest {
     }
 
     @Test
+    fun `return expected element for get row, col`() {
+        assertThat(testGrid[3, 3])
+            .isEqualTo(4444)
+    }
+
+    @Test
     fun `return expected element for elementAt`() {
         val actual = testGrid.elementAt(Location(2, 2), Direction.NorthWest, 2)
         assertThat(actual)
