@@ -21,7 +21,7 @@ data class Grid2D<T>(
 
     infix operator fun get(location: Location): T = grid[location.row][location.col]
 
-    fun get(row: Int, col: Int): T = grid[row][col]
+    operator fun get(row: Int, col: Int): T = grid[row][col]
 
     /** @return true if the specified [location] is in the bounds of this grid, false if not. */
     fun isInBounds(location: Location): Boolean = isInBounds(location.row, location.col)
@@ -42,6 +42,36 @@ data class Grid2D<T>(
         return if (isInBounds(endLocation)) {
             get(endLocation)
         } else null
+    }
+
+    /** @return The collection of elements (as a [List]) that exist from the start [from] (inclusive)
+     * in [direction] for [numElementsToCollect], null if any location would be out of bounds of this grid.
+     *
+     * Note that [numElementsToCollect] is inclusive of the starting location - therefore, a value
+     * of 1 would result in a single item list of just the element at [from]. */
+    fun collect(
+        from: Location,
+        direction: Direction,
+        numElementsToCollect: Int,
+    ) : List<T>? {
+        val finalLocation = from.move(direction, numElementsToCollect - 1)
+        if (!isInBounds(finalLocation)) {
+            return null
+        }
+        return buildList {
+            for (i in 0..<numElementsToCollect) {
+                add(get(from.move(direction, i)))
+            }
+        }
+    }
+
+    /** Walks through each location in this grid. */
+    inline fun traverse(at: (location: Location) -> Unit) {
+        for (row in 0..<rowSize) {
+            for (col in 0..<colSize) {
+                at(Location(row, col))
+            }
+        }
     }
 
     /** @return A new copy of this [Grid2D] with the specified [element] replaced at [location].
@@ -95,3 +125,8 @@ data class Grid2D<T>(
 }
 
 fun <T> List<List<T>>.toGrid2D() = Grid2D(this)
+
+/** Converts the common AoC input (List of lines (as String) from input file). */
+inline fun <T> List<String>.toGrid2D(convertLine: (String) -> List<T>) = map { line ->
+    convertLine(line)
+}.toGrid2D()
