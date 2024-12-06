@@ -21,6 +21,8 @@ data class Grid2D<T>(
 
     infix operator fun get(location: Location): T = grid[location.row][location.col]
 
+    operator fun get(row: Int, col: Int): T = grid[row][col]
+
     /** @return true if the specified [location] is in the bounds of this grid, false if not. */
     fun isInBounds(location: Location): Boolean = isInBounds(location.row, location.col)
 
