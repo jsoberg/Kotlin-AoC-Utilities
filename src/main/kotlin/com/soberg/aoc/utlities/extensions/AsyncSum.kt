@@ -1,22 +1,26 @@
 package com.soberg.aoc.utlities.extensions
 
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.experimental.ExperimentalTypeInference
 
 @OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
-@JvmName("asyncSumOfInt")
-inline fun <T> Iterable<T>.asyncSumOf(
+@JvmName("asyncSumOfIntBlocking")
+inline fun <T> Iterable<T>.asyncSumOfBlocking(
     dispatcher: CoroutineDispatcher = Dispatchers.Default,
     crossinline selector: (T) -> Int,
-): Int {
+): Int = runBlocking(dispatcher) {
+    asyncSumOf(selector)
+}
+
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+@JvmName("asyncSumOfInt")
+suspend inline fun <T> Iterable<T>.asyncSumOf(crossinline selector: (T) -> Int): Int {
     val sum = AtomicInteger()
-    runBlocking(dispatcher) {
+    coroutineScope {
         forEach {
             launch {
                 sum.getAndAdd(selector(it))
@@ -28,13 +32,20 @@ inline fun <T> Iterable<T>.asyncSumOf(
 
 @OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
-@JvmName("asyncSumOfLong")
-inline fun <T> Iterable<T>.asyncSumOf(
+@JvmName("asyncSumOfLongBlocking")
+inline fun <T> Iterable<T>.asyncSumOfBlocking(
     dispatcher: CoroutineDispatcher = Dispatchers.Default,
     crossinline selector: (T) -> Long,
-): Long {
+): Long = runBlocking(dispatcher){
+    asyncSumOf(selector)
+}
+
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+@JvmName("asyncSumOfLong")
+suspend inline fun <T> Iterable<T>.asyncSumOf(crossinline selector: (T) -> Long): Long {
     val sum = AtomicLong()
-    runBlocking(dispatcher) {
+    coroutineScope {
         forEach {
             launch {
                 sum.getAndAdd(selector(it))
