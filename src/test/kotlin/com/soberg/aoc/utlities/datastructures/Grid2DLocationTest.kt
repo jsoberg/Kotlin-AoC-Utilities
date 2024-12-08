@@ -4,6 +4,8 @@ import assertk.assertThat
 import assertk.assertions.isEqualTo
 import com.soberg.aoc.utlities.datastructures.Grid2D.Direction
 import com.soberg.aoc.utlities.datastructures.Grid2D.Location
+import com.soberg.aoc.utlities.datastructures.Grid2D.Location.Distance
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -28,6 +30,27 @@ class Grid2DLocationTest {
     ) {
         val actual = origin.move(direction, 9)
         assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `return expected distance for plus location`() {
+        assertThat(Location(10, 10) distanceTo Location(1, 2))
+            .isEqualTo(Distance(9, 8))
+
+        assertThat(Location(1, 2) distanceTo Location(10, 10))
+            .isEqualTo(Distance(-9, -8))
+    }
+
+    @Test
+    fun `return expected location when adding distance`() {
+        assertThat(Location(10, 10) + Distance(1, 2))
+            .isEqualTo(Location(11, 12))
+    }
+
+    @Test
+    fun `return expected location when subtracting distance`() {
+        assertThat(Location(10, 10) - Distance(1, 2))
+            .isEqualTo(Location(9, 8))
     }
 
     companion object {
