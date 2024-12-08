@@ -10,7 +10,7 @@ This can be added to a [Kotlin Advent of Code template repository](https://githu
 
 ```kts
 dependencies {
-    implementation("com.github.jsoberg:Kotlin-AoC-Utilities:2024.3")
+    implementation("com.github.jsoberg:Kotlin-AoC-Utilities:2024.4")
 }
 ```
 
@@ -26,3 +26,8 @@ Listing of the current utilities for common functions found in Advent of Code pu
 ### Input Reading
 
 - [ReadInput](src/main/kotlin/com/soberg/aoc/utlities/input/ReadInput.kt) - Uses the [Kotlin AoC API](https://github.com/jsoberg/Kotlin-AoC-API) to read daily input from API, caching locally in `input/<year>/Day<day>.txt`.
+
+
+### Async
+
+- [AsyncSum](src/main/kotlin/com/soberg/aoc/utlities/extensions/AsyncSum.kt) - Various utility functions for running sum functions asynchronously (using coroutines).
