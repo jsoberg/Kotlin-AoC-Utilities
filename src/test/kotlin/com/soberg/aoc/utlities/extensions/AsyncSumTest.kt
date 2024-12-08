@@ -16,9 +16,9 @@ class AsyncSumTest {
 
         assertThat(letterCount).isEqualTo(36)
     }
-
+    
     @Test
-    fun `return sum of integers - coroutine`() = runTest{
+    fun `return sum of integers - coroutine`() = runTest {
         val letterCount = testData.asyncSumOf {
             it.length
         }
@@ -36,7 +36,7 @@ class AsyncSumTest {
     }
 
     @Test
-    fun `return sum of longs - coroutine`() = runTest{
+    fun `return sum of longs - coroutine`() = runTest {
         val letterCount = testData.asyncSumOf {
             it.length.toLong()
         }

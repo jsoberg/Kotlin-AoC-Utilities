@@ -60,7 +60,7 @@ class Grid2DLocationTest {
         @JvmStatic
         fun provideArgumentsForDistanceOfOneMove() = listOf(
             Arguments.of(Direction.North, Location(9, 10)),
-            Arguments.of(Direction.NorthEast,Location(9, 11)),
+            Arguments.of(Direction.NorthEast, Location(9, 11)),
             Arguments.of(Direction.East, Location(10, 11)),
             Arguments.of(Direction.SouthEast, Location(11, 11)),
             Arguments.of(Direction.South, Location(11, 10)),
@@ -72,7 +72,7 @@ class Grid2DLocationTest {
         @JvmStatic
         fun provideArgumentsForDistanceOfNineMove() = listOf(
             Arguments.of(Direction.North, Location(1, 10)),
-            Arguments.of(Direction.NorthEast,Location(1, 19)),
+            Arguments.of(Direction.NorthEast, Location(1, 19)),
             Arguments.of(Direction.East, Location(10, 19)),
             Arguments.of(Direction.SouthEast, Location(19, 19)),
             Arguments.of(Direction.South, Location(19, 10)),

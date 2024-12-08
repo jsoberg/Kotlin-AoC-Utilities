@@ -1,7 +1,5 @@
 package com.soberg.aoc.utlities.datastructures
 
-import kotlin.math.absoluteValue
-
 /** A uniform 2D grid with elements of type [T]. */
 data class Grid2D<T>(
     private val grid: List<List<T>>,
@@ -58,7 +56,7 @@ data class Grid2D<T>(
         from: Location,
         direction: Direction,
         numElementsToCollect: Int,
-    ) : List<T>? {
+    ): List<T>? {
         val finalLocation = from.move(direction, numElementsToCollect - 1)
         if (!isInBounds(finalLocation)) {
             return null
@@ -72,7 +70,7 @@ data class Grid2D<T>(
 
     /** @return Map of elements to list of their respective locations. */
     fun elementToLocationsMap(): Map<T, List<Location>> =
-        filterElementToLocationsMap(filter = { _,_ -> true })
+        filterElementToLocationsMap(filter = { _, _ -> true })
 
     /** @return Map of elements and their respective locations in the grid that pass [filter]. */
     fun filterElementToLocationsMap(
@@ -190,7 +188,7 @@ data class Grid2D<T>(
         )
 
         companion object {
-            infix fun Int.loc(col: Int) : Location = Location(row = this, col = col)
+            infix fun Int.loc(col: Int): Location = Location(row = this, col = col)
         }
     }
 

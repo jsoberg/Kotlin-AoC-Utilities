@@ -238,8 +238,8 @@ class Grid2DTest {
     @Test
     fun `create expected output string when filtering`() {
         val grid = listOf(
-            listOf(1,2,3),
-            listOf(4,5,6),
+            listOf(1, 2, 3),
+            listOf(4, 5, 6),
         ).toGrid2D()
         assertThat(grid.toString { "${grid[it] + 1}," })
             .isEqualTo(

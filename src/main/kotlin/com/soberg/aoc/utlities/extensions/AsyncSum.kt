@@ -1,6 +1,10 @@
 package com.soberg.aoc.utlities.extensions
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.experimental.ExperimentalTypeInference
@@ -36,7 +40,7 @@ suspend inline fun <T> Iterable<T>.asyncSumOf(crossinline selector: (T) -> Int):
 inline fun <T> Iterable<T>.asyncSumOfBlocking(
     dispatcher: CoroutineDispatcher = Dispatchers.Default,
     crossinline selector: (T) -> Long,
-): Long = runBlocking(dispatcher){
+): Long = runBlocking(dispatcher) {
     asyncSumOf(selector)
 }
 
