@@ -7,6 +7,7 @@ group = Publishing.GroupId
 version = Publishing.Version
 
 dependencies {
+    implementation(libs.kotlin.coroutines)
     implementation(libs.kotlin.stdlib)
     implementation(libs.soberg.aoc.api)
 
