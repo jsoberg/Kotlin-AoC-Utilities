@@ -91,12 +91,19 @@ data class Grid2D<T>(
 
     // region Grid traversal
 
-    /** Walks through each location in this grid. */
+    /** Walks through each location in this grid, with a callback for each location. */
     inline fun traverse(at: (location: Location) -> Unit) {
         for (row in 0..<rowSize) {
             for (col in 0..<colSize) {
                 at(Location(row, col))
             }
+        }
+    }
+
+    /** Walks through each location in this grid, with a callback for each location and corresponding element. */
+    inline fun traverse(at: (location: Location, element: T) -> Unit) {
+        traverse { location ->
+            at(location, get(location))
         }
     }
 

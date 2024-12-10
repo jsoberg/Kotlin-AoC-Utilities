@@ -151,8 +151,8 @@ class Grid2DTest {
             listOf(4, 5, 6),
         ).toGrid2D()
         val actualTouched = buildList {
-            grid.traverse {
-                add(it.row to it.col)
+            grid.traverse { loc ->
+                add(loc.row to loc.col)
             }
         }
         assertThat(actualTouched)
@@ -160,6 +160,21 @@ class Grid2DTest {
                 0 to 0, 0 to 1, 0 to 2,
                 1 to 0, 1 to 1, 1 to 2,
             )
+    }
+
+    @Test
+    fun `touch all elements in grid for traverse`() {
+        val grid = listOf(
+            listOf(1, 2, 3),
+            listOf(4, 5, 6),
+        ).toGrid2D()
+        val actualElements = buildList {
+            grid.traverse { _, element ->
+                add(element)
+            }
+        }
+        assertThat(actualElements)
+            .containsExactly(1, 2, 3, 4, 5, 6)
     }
 
     @Test
