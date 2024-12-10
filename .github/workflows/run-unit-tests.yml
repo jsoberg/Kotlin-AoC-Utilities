@@ -5,6 +5,9 @@ on:
   # Automatically run on pushes directly to main.
   push:
     branches: [ main ]
+  # Automatically run on PRs off of main.
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-and-test:
