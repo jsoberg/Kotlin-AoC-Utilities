@@ -77,8 +77,7 @@ data class Grid2D<T>(
         filter: (element: T, location: Location) -> Boolean
     ): Map<T, List<Location>> {
         val elementToLocationsMap = hashMapOf<T, List<Location>>()
-        traverse { at ->
-            val element = get(at)
+        traverse { at, element ->
             if (filter(element, at)) {
                 val currentLocations = elementToLocationsMap[element] ?: emptyList()
                 elementToLocationsMap[element] = currentLocations + at
@@ -92,10 +91,11 @@ data class Grid2D<T>(
     // region Grid traversal
 
     /** Walks through each location in this grid. */
-    inline fun traverse(at: (location: Location) -> Unit) {
+    inline fun traverse(at: (location: Location, element: T) -> Unit) {
         for (row in 0..<rowSize) {
             for (col in 0..<colSize) {
-                at(Location(row, col))
+                val location = Location(row, col)
+                at(location, get(location))
             }
         }
     }
@@ -104,11 +104,11 @@ data class Grid2D<T>(
     inline fun traverseDirection(
         from: Location,
         direction: Direction,
-        at: (location: Location) -> Unit,
+        at: (location: Location, element: T) -> Unit,
     ) {
         var current = from
         while (isInBounds(current)) {
-            at(current)
+            at(current, get(current))
             current = current.move(direction)
         }
     }
@@ -140,7 +140,7 @@ data class Grid2D<T>(
     inline fun toString(
         toPrint: (Location) -> String,
     ): String = StringBuilder().apply {
-        traverse { location ->
+        traverse { location, _ ->
             append(toPrint(location))
             if (location.col == (colSize - 1)) {
                 appendLine()
