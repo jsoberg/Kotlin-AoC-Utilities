@@ -223,6 +223,18 @@ data class Grid2D<T>(
             Negative(-1),
             None(0),
         }
+
+        val opposite
+            get() = when (this) {
+                North -> South
+                NorthEast -> SouthWest
+                East -> West
+                SouthEast -> NorthWest
+                South -> North
+                SouthWest -> NorthEast
+                West -> East
+                NorthWest -> SouthEast
+            }
     }
 
     // endregion
