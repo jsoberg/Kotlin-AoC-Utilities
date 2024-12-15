@@ -10,6 +10,7 @@ import assertk.assertions.isNotNull
 import assertk.assertions.isNull
 import assertk.assertions.isTrue
 import com.soberg.aoc.utlities.datastructures.Grid2D.Direction
+import com.soberg.aoc.utlities.datastructures.Grid2D.Direction.Companion.MainDirections
 import com.soberg.aoc.utlities.datastructures.Grid2D.Location
 import com.soberg.aoc.utlities.datastructures.Grid2D.Location.Companion.loc
 import org.junit.jupiter.api.Test
@@ -34,6 +35,8 @@ class Grid2DTest {
     fun `return expected col size`() {
         assertThat(testGrid.colSize).isEqualTo(4)
     }
+
+    // region Grid elements
 
     @Test
     fun `return expected element for get`() {
@@ -144,6 +147,10 @@ class Grid2DTest {
             )
     }
 
+    // endregion
+
+    // region Grid traversal
+
     @Test
     fun `touch all locations in grid for traverse`() {
         val grid = listOf(
@@ -195,6 +202,72 @@ class Grid2DTest {
     }
 
     @Test
+    fun `result in expected sum for sumOf Int`() {
+        val grid = listOf(
+            listOf(1, 2, 3),
+            listOf(4, 5, 6),
+        ).toGrid2D()
+        assertThat(grid.sumOf { _, element -> element })
+            .isEqualTo(1 + 2 + 3 + 4 + 5 + 6)
+    }
+
+    @Test
+    fun `result in expected sum for sumOf Long`() {
+        val grid = listOf(
+            listOf(Int.MAX_VALUE.toLong() + 1, 2L),
+            listOf(4L, 5L),
+        ).toGrid2D()
+        assertThat(grid.sumOf { _, element -> element })
+            .isEqualTo(Int.MAX_VALUE.toLong() + 1 + 2 + 4 + 5)
+    }
+
+    @Test
+    fun `return expected set of neighbors`() {
+        assertThat(testGrid.neighbors(Location(0, 0), MainDirections))
+            .containsOnly(0 loc 1, 1 loc 0)
+
+        assertThat(testGrid.neighbors(Location(1, 1), Direction.entries))
+            .containsOnly(0 loc 0, 0 loc 1, 0 loc 2, 1 loc 0, 2 loc 0, 2 loc 1, 2 loc 2, 1 loc 2)
+    }
+
+    // endregion
+
+    // region Grid modification
+
+    @Test
+    fun `throw when attempting replace for out of bounds location`() {
+        val exception = assertThrows<IllegalArgumentException> {
+            testGrid.replace(Location(12, 2), 100000)
+        }
+        assertThat(exception)
+            .hasMessage("${Location(12, 2)} not in bounds for this grid")
+    }
+
+    @Test
+    fun `return modified grid when running modify`() {
+        val grid = listOf(
+            listOf(1, 2, 3),
+            listOf(4, 5, 6),
+        ).toGrid2D()
+        assertThat(
+            grid.modify { gridList ->
+                gridList[0][0] = 100
+                gridList[1][0] = 400
+                gridList[1][2] = 600
+            }
+        ).isEqualTo(
+            listOf(
+                listOf(100, 2, 3),
+                listOf(400, 5, 600),
+            ).toGrid2D()
+        )
+    }
+
+    // endregion
+
+    // region Grid builder extensions
+
+    @Test
     fun `create expected grid from input`() {
         val grid = listOf(
             "ABC",
@@ -214,15 +287,6 @@ class Grid2DTest {
     }
 
     @Test
-    fun `throw when attempting replace for out of bounds location`() {
-        val exception = assertThrows<IllegalArgumentException> {
-            testGrid.replace(Location(12, 2), 100000)
-        }
-        assertThat(exception)
-            .hasMessage("${Location(12, 2)} not in bounds for this grid")
-    }
-
-    @Test
     fun `throw for non-uniform grid`() {
         val exception = assertThrows<IllegalStateException> {
             listOf(
@@ -236,6 +300,10 @@ class Grid2DTest {
         assertThat(exception)
             .hasMessage("Grid is not uniform - row at index 3 has a differing # of columns")
     }
+
+    // endregion
+
+    // Grid string representation/printing
 
     @Test
     fun `create expected output string`() {
@@ -261,4 +329,6 @@ class Grid2DTest {
                 "2,3,4,\n5,6,7,\n"
             )
     }
+
+    // endregion
 }

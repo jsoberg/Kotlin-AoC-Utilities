@@ -1,5 +1,7 @@
 package com.soberg.aoc.utlities.datastructures
 
+import kotlin.experimental.ExperimentalTypeInference
+
 /** A uniform 2D grid with elements of type [T]. */
 data class Grid2D<T>(
     private val grid: List<List<T>>,
@@ -87,6 +89,17 @@ data class Grid2D<T>(
         return elementToLocationsMap
     }
 
+    /** Returns all neighboring Locations for this Location, in the specified [directions].
+     * If any neighbor location is out of bounds for this grid, it will not be included. */
+    fun neighbors(location: Location, directions: Collection<Direction>): Set<Location> = buildSet {
+        directions.forEach { direction ->
+            val moved = location.move(direction)
+            if (moved in this@Grid2D) {
+                add(moved)
+            }
+        }
+    }
+
     // endregion
 
     // region Grid traversal
@@ -120,6 +133,30 @@ data class Grid2D<T>(
         }
     }
 
+    /** Traverses each location in the grid, summing the result of [at]. */
+    @OptIn(ExperimentalTypeInference::class)
+    @OverloadResolutionByLambdaReturnType
+    @JvmName("sumOfInt")
+    inline fun sumOf(at: (location: Location, element: T) -> Int): Int {
+        var sum = 0
+        traverse { location ->
+            sum += at(location, get(location))
+        }
+        return sum
+    }
+
+    /** Traverses each location in the grid, summing the result of [at]. */
+    @OptIn(ExperimentalTypeInference::class)
+    @OverloadResolutionByLambdaReturnType
+    @JvmName("sumOfLong")
+    inline fun sumOf(at: (location: Location, element: T) -> Long): Long {
+        var sum = 0L
+        traverse { location ->
+            sum += at(location, get(location))
+        }
+        return sum
+    }
+
     // endregion
 
     // region Grid modification
@@ -137,6 +174,13 @@ data class Grid2D<T>(
                 set(location.row, replacedRow)
             }
         )
+    }
+
+    /** @return A new copy of this [Grid2D] with the underlying grid (in 2D list format) returned from [block]. */
+    fun modify(block: (mutableGrid: MutableList<MutableList<T>>) -> Unit): Grid2D<T> {
+        val mutableGrid = grid.map { it.toMutableList() }.toMutableList()
+        block(mutableGrid)
+        return mutableGrid.toGrid2D()
     }
 
     // endregion
@@ -235,6 +279,11 @@ data class Grid2D<T>(
                 West -> East
                 NorthWest -> SouthEast
             }
+
+        companion object {
+            /** The four main cardinal directions (North, South, East, West). */
+            val MainDirections = setOf(North, South, East, West)
+        }
     }
 
     // endregion
