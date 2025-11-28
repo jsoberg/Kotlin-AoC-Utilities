@@ -3,9 +3,15 @@ on:
     types: [published]
 
 jobs:
-  build:
+  publish-to-jitpack:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+
       - uses: badasintended/autojitpack@v1
         with:
           version: ${{ github.event.release.tag_name }}
