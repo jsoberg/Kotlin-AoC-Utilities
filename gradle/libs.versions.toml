@@ -1,9 +1,8 @@
 [versions]
 assertk = "0.28.1"
-kotlin = "2.1.0"
-kotlinCoroutines = "1.9.0"
-junitJupiter = "5.11.3"
-mockk = "1.13.13"
+kotlin = "2.2.21"
+kotlinCoroutines = "1.10.2"
+junitBom = "6.0.1"
 sobergAocApi = "1.0"
 
 [libraries]
@@ -16,7 +15,10 @@ soberg-aoc-api = { module = "com.github.jsoberg:Kotlin-AoC-API", version.ref = "
 
 # Test
 test-assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
-test-junitJupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
-test-junitJupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
 test-kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinCoroutines" }
-test-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+
+# Test - JUnit
+test-junit-bom = { group = "org.junit", name = "junit-bom", version.ref = "junitBom" }
+test-junitJupiter = { module = "org.junit.jupiter:junit-jupiter" }
+test-junitJupiter-params = { module = "org.junit.jupiter:junit-jupiter-params" }
+test-junit-launcher = { module = "org.junit.platform:junit-platform-launcher" }
