@@ -202,7 +202,7 @@ class Grid2DTest {
     }
 
     @Test
-    fun `result in expected sum for sumOf Int`() {
+    fun `return expected sum for sumOf Int`() {
         val grid = listOf(
             listOf(1, 2, 3),
             listOf(4, 5, 6),
@@ -212,13 +212,23 @@ class Grid2DTest {
     }
 
     @Test
-    fun `result in expected sum for sumOf Long`() {
+    fun `return expected sum for sumOf Long`() {
         val grid = listOf(
             listOf(Int.MAX_VALUE.toLong() + 1, 2L),
             listOf(4L, 5L),
         ).toGrid2D()
         assertThat(grid.sumOf { _, element -> element })
             .isEqualTo(Int.MAX_VALUE.toLong() + 1 + 2 + 4 + 5)
+    }
+
+    @Test
+    fun `return expected count`() {
+        val grid = listOf(
+            listOf('A', 'T', 'P'),
+            listOf('P', 'P', 'A'),
+        ).toGrid2D()
+        assertThat(grid.count { _, element -> element == 'P' })
+            .isEqualTo(3)
     }
 
     @Test

@@ -133,6 +133,17 @@ data class Grid2D<T>(
         }
     }
 
+    /** Traverses each location in the grid, counting the true results of [at]. */
+    inline fun count(at: (location: Location, element: T) -> Boolean): Int {
+        var total = 0
+        traverse { location ->
+            if (at(location, get(location))) {
+                total++
+            }
+        }
+        return total
+    }
+
     /** Traverses each location in the grid, summing the result of [at]. */
     @OptIn(ExperimentalTypeInference::class)
     @OverloadResolutionByLambdaReturnType
