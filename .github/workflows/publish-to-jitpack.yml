@@ -1,6 +1,9 @@
+# Publishes new version to Jitpack when released
+name: "Publish to Jitpack"
+
 on:
   release:
-    types: [published]
+    types: [ published ]
 
 jobs:
   publish-to-jitpack:
