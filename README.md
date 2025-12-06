@@ -10,7 +10,7 @@ This can be added to a [Kotlin Advent of Code template repository](https://githu
 
 ```kts
 dependencies {
-    implementation("com.github.jsoberg:Kotlin-AoC-Utilities:2025.3")
+    implementation("com.github.jsoberg:Kotlin-AoC-Utilities:2025.3.1")
 }
 ```
 
