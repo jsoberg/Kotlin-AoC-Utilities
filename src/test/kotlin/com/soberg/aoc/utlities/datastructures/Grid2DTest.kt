@@ -51,6 +51,20 @@ class Grid2DTest {
     }
 
     @Test
+    fun `return expected elements for column`() {
+        val actual = testGrid.column(2)
+        assertThat(actual)
+            .containsExactly(3, 33, 333, 3333, 33333)
+    }
+
+    @Test
+    fun `throw error when column doesn't exist`() {
+        assertThrows<IllegalStateException> {
+            testGrid.column(100)
+        }
+    }
+
+    @Test
     fun `return expected element for elementAt`() {
         val actual = testGrid.elementAt(Location(2, 2), Direction.NorthWest, 2)
         assertThat(actual)

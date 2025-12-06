@@ -29,6 +29,17 @@ data class Grid2D<T>(
 
     infix operator fun contains(location: Location): Boolean = isInBounds(location)
 
+    /** @return The column element values for column at index [col], or an error if [col] is not a valid index for this grid. */
+    fun column(col: Int): List<T> {
+        if (!isInBounds(row = 0, col = col)) {
+            error("Column at index $col does not exist")
+        }
+
+        return (0 until rowSize).map { row ->
+            get(row = row, col = col)
+        }
+    }
+
     /** @return true if the specified [location] is in the bounds of this grid, false if not. */
     fun isInBounds(location: Location): Boolean = isInBounds(location.row, location.col)
 
